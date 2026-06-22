@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Qwest</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#04020a;
+}
+
+body{
+    position:relative;
+}
+
+/* =======================
+   SCENE
+======================= */
+
+.scene{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #0b0615 0%,
+        #04020a 60%,
+        #020104 100%
+    );
+}
+
+/* =======================
+   GLOWS
+======================= */
+
+.redGlow{
+
+    position:absolute;
+
+    width:1200px;
+    height:1200px;
+
+    left:-850px;
+    top:-450px;
+
+    border-radius:50%;
+
+    background:#ff295f;
+
+    filter:blur(260px);
+
+    opacity:0;
+
+    animation:
+    redEnter 3s ease forwards;
+}
+
+.purpleGlow{
+
+    position:absolute;
+
+    width:1400px;
+    height:1400px;
+
+    right:-950px;
+    bottom:-900px;
+
+    border-radius:50%;
+
+    background:#7b3dff;
+
+    filter:blur(300px);
+
+    opacity:0;
+
+    animation:
+    purpleEnter 4s ease forwards;
+}
+
+/* =======================
+   ARCS
+======================= */
+
+.arc{
+
+    position:absolute;
+
+    border-radius:50%;
+}
+
+.arc1{
+
+    width:1600px;
+    height:1600px;
+
+    left:-1250px;
+    top:-550px;
+
+    border:
+    140px solid
+    rgba(255,60,110,.08);
+
+    box-shadow:
+    0 0 120px
+    rgba(255,60,110,.15);
+
+    opacity:0;
+
+    animation:
+    arcLeft 3.5s ease forwards;
+}
+
+.arc2{
+
+    width:1900px;
+    height:1900px;
+
+    right:-1550px;
+    top:-1150px;
+
+    border:
+    150px solid
+    rgba(255,60,110,.06);
+
+    box-shadow:
+    0 0 180px
+    rgba(255,60,110,.10);
+
+    opacity:0;
+
+    animation:
+    arcRightTop 4.5s ease forwards;
+}
+
+.arc3{
+
+    width:1800px;
+    height:1800px;
+
+    right:-1450px;
+    bottom:-1150px;
+
+    border:
+    150px solid
+    rgba(130,70,255,.10);
+
+    box-shadow:
+    0 0 180px
+    rgba(130,70,255,.14);
+
+    opacity:0;
+
+    animation:
+    arcRightBottom 5s ease forwards;
+}
+
+/* =======================
+   VIGNETTE
+======================= */
+
+.vignette{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(
+        circle,
+        transparent 50%,
+        rgba(0,0,0,.35) 100%
+    );
+
+    pointer-events:none;
+}
+
+/* =======================
+   INTRO
+======================= */
+
+@keyframes redEnter{
+
+    from{
+        opacity:0;
+        transform:
+        translateX(-300px);
+    }
+
+    to{
+        opacity:.6;
+        transform:
+        translateX(0);
+    }
+}
+
+@keyframes purpleEnter{
+
+    from{
+        opacity:0;
+        transform:
+        translateX(300px);
+    }
+
+    to{
+        opacity:.6;
+        transform:
+        translateX(0);
+    }
+}
+
+@keyframes arcLeft{
+
+    from{
+        opacity:0;
+        transform:
+        translateX(-300px);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        translateX(0);
+    }
+}
+
+@keyframes arcRightTop{
+
+    from{
+        opacity:0;
+        transform:
+        translateX(300px);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        translateX(0);
+    }
+}
+
+@keyframes arcRightBottom{
+
+    from{
+        opacity:0;
+        transform:
+        translateX(300px);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        translateX(0);
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="scene">
+
+    <div class="redGlow"></div>
+
+    <div class="purpleGlow"></div>
+
+    <div class="arc arc1"></div>
+
+    <div class="arc arc2"></div>
+
+    <div class="arc arc3"></div>
+
+</div>
+
+<div class="vignette"></div>
+<div class="cursorWrap">
+
+    <div class="cursorGlow"></div>
+
+    <svg class="cursor" viewBox="0 0 100 100">
+
+        <defs>
+
+            <linearGradient
+                id="cursorGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%">
+
+                <stop
+                    offset="0%"
+                    stop-color="#ff2b68"/>
+
+                <stop
+                    offset="100%"
+                    stop-color="#8a46ff"/>
+
+            </linearGradient>
+
+        </defs>
+
+        <path
+            d="
+            M20 12
+            C18 10 14 12 15 17
+            L25 72
+            C26 77 31 78 34 75
+            L42 56
+            L60 68
+            C64 71 69 68 69 63
+            C69 61 68 59 66 57
+            L49 46
+            L67 43
+            C73 42 75 36 71 32
+            L20 12Z"
+            fill="url(#cursorGradient)"
+        />
+
+    </svg>
+
+</div>
+
+<style>
+
+body{
+    cursor:none;
+}
+
+.cursorWrap{
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    width:0;
+    height:0;
+
+    z-index:99999;
+
+    pointer-events:none;
+}
+
+.cursorGlow{
+
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(255,45,104,.18),
+        rgba(138,70,255,.12),
+        transparent 75%
+    );
+
+    filter:
+    blur(18px);
+}
+
+.cursor{
+
+    position:absolute;
+
+    width:34px;
+    height:34px;
+
+    transform:
+    translate(-8px,-8px);
+
+    filter:
+    drop-shadow(
+        0 0 10px
+        rgba(255,45,104,.6)
+    )
+    drop-shadow(
+        0 0 20px
+        rgba(138,70,255,.6)
+    );
+}
+
+</style>
+
+<script>
+
+const cursorWrap =
+document.querySelector(
+'.cursorWrap'
+);
+
+let mouseX =
+window.innerWidth/2;
+
+let mouseY =
+window.innerHeight/2;
+
+let cursorX =
+mouseX;
+
+let cursorY =
+mouseY;
+
+window.addEventListener(
+'mousemove',
+e=>{
+
+    mouseX =
+    e.clientX;
+
+    mouseY =
+    e.clientY;
+
+}
+);
+
+function cursorLoop(){
+
+    cursorX +=
+    (mouseX-cursorX)
+    *0.18;
+
+    cursorY +=
+    (mouseY-cursorY)
+    *0.18;
+
+    cursorWrap.style.transform =
+
+    `translate(
+        ${cursorX}px,
+        ${cursorY}px
+    )`;
+
+    requestAnimationFrame(
+        cursorLoop
+    );
+}
+
+cursorLoop();
+<style>
+
+/* =======================
+   SCENE REVEAL
+======================= */
+
+.scene{
+
+    opacity:0;
+
+    animation:
+    sceneReveal
+    2.5s ease forwards;
+}
+
+@keyframes sceneReveal{
+
+    from{
+
+        opacity:0;
+    }
+
+    to{
+
+        opacity:1;
+    }
+}
+
+/* =======================
+   ARC MOTION
+======================= */
+
+.arc1{
+
+    animation:
+    arcLeft 3.5s ease forwards,
+    arcFloat1 18s ease-in-out infinite;
+}
+
+.arc2{
+
+    animation:
+    arcRightTop 4.5s ease forwards,
+    arcFloat2 24s ease-in-out infinite;
+}
+
+.arc3{
+
+    animation:
+    arcRightBottom 5s ease forwards,
+    arcFloat3 20s ease-in-out infinite;
+}
+
+@keyframes arcFloat1{
+
+    0%{
+        transform:
+        translate(0,0);
+    }
+
+    50%{
+        transform:
+        translate(
+        25px,
+        -12px
+        );
+    }
+
+    100%{
+        transform:
+        translate(0,0);
+    }
+}
+
+@keyframes arcFloat2{
+
+    0%{
+        transform:
+        translate(0,0);
+    }
+
+    50%{
+        transform:
+        translate(
+        -35px,
+        18px
+        );
+    }
+
+    100%{
+        transform:
+        translate(0,0);
+    }
+}
+
+@keyframes arcFloat3{
+
+    0%{
+        transform:
+        translate(0,0);
+    }
+
+    50%{
+        transform:
+        translate(
+        -20px,
+        -20px
+        );
+    }
+
+    100%{
+        transform:
+        translate(0,0);
+    }
+}
+
+/* =======================
+   GLOW BREATHING
+======================= */
+
+.redGlow{
+
+    animation:
+    redEnter 3s ease forwards,
+    redBreath 8s ease-in-out infinite;
+}
+
+.purpleGlow{
+
+    animation:
+    purpleEnter 4s ease forwards,
+    purpleBreath 10s ease-in-out infinite;
+}
+
+@keyframes redBreath{
+
+    0%{
+
+        filter:
+        blur(260px);
+
+        opacity:.55;
+    }
+
+    50%{
+
+        filter:
+        blur(320px);
+
+        opacity:.72;
+    }
+
+    100%{
+
+        filter:
+        blur(260px);
+
+        opacity:.55;
+    }
+}
+
+@keyframes purpleBreath{
+
+    0%{
+
+        filter:
+        blur(300px);
+
+        opacity:.55;
+    }
+
+    50%{
+
+        filter:
+        blur(360px);
+
+        opacity:.72;
+    }
+
+    100%{
+
+        filter:
+        blur(300px);
+
+        opacity:.55;
+    }
+}
+
+</style>
+
+<script>
+
+/* =======================
+   PARALLAX
+======================= */
+
+const arc1 =
+document.querySelector(
+'.arc1'
+);
+
+const arc2 =
+document.querySelector(
+'.arc2'
+);
+
+const arc3 =
+document.querySelector(
+'.arc3'
+);
+
+let px = 0;
+let py = 0;
+
+window.addEventListener(
+'mousemove',
+e=>{
+
+    px =
+    (
+    e.clientX /
+    innerWidth
+    - .5
+    );
+
+    py =
+    (
+    e.clientY /
+    innerHeight
+    - .5
+    );
+
+}
+);
+
+function parallaxLoop(){
+
+    arc1.style.marginLeft =
+    px * 25 + 'px';
+
+    arc1.style.marginTop =
+    py * 25 + 'px';
+
+    arc2.style.marginLeft =
+    px * 40 + 'px';
+
+    arc2.style.marginTop =
+    py * 40 + 'px';
+
+    arc3.style.marginLeft =
+    px * -35 + 'px';
+
+    arc3.style.marginTop =
+    py * -35 + 'px';
+
+    requestAnimationFrame(
+        parallaxLoop
+    );
+}
+
+parallaxLoop();
+
+</script>
+<audio id="music" preload="auto">
+    <source src="music.flac" type="audio/flac">
+</audio>
+
+<div id="qwestIntro">
+
+    <div class="qwestGlass">
+
+        <div class="qwestText">
+            Qwest
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+/* =======================
+   QWEST INTRO
+======================= */
+
+#qwestIntro{
+
+    position:fixed;
+
+    left:50%;
+    top:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:5000;
+
+    transition:
+    1.8s cubic-bezier(
+        .16,1,.3,1
+    );
+}
+
+#qwestIntro.show{
+
+    opacity:1;
+}
+
+.qwestGlass{
+
+    min-width:320px;
+
+    height:120px;
+
+    padding:
+    0 50px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:28px;
+
+    background:
+    rgba(255,255,255,.035);
+
+    backdrop-filter:
+    blur(28px);
+
+    border:
+    1px solid
+    rgba(255,255,255,.08);
+
+    box-shadow:
+    0 20px 80px
+    rgba(0,0,0,.4);
+}
+
+.qwestText{
+
+    color:white;
+
+    font-size:72px;
+
+    font-weight:700;
+
+    letter-spacing:-4px;
+
+    opacity:0;
+
+    filter:blur(18px);
+
+    transform:
+    translateY(20px);
+
+    transition:
+    2s cubic-bezier(
+        .16,1,.3,1
+    );
+}
+
+#qwestIntro.show
+.qwestText{
+
+    opacity:1;
+
+    filter:blur(0);
+
+    transform:
+    translateY(0);
+}
+
+</style>
+
+<script>
+
+/* =======================
+   MUSIC
+======================= */
+
+const music =
+document.getElementById(
+'music'
+);
+
+const qwestIntro =
+document.getElementById(
+'qwestIntro'
+);
+
+let musicStarted =
+false;
+
+document.addEventListener(
+'click',
+()=>{
+
+    if(
+        musicStarted
+    ) return;
+
+    musicStarted =
+    true;
+
+    music.volume =
+    0;
+
+    music.play();
+
+    let vol = 0;
+
+    const fade =
+    setInterval(()=>{
+
+        vol += 0.01;
+
+        if(vol >= 0.35){
+
+            vol = 0.35;
+
+            clearInterval(
+                fade
+            );
+        }
+
+        music.volume =
+        vol;
+
+    },100);
+
+},
+{once:true}
+);
+
+music.addEventListener(
+'timeupdate',
+()=>{
+
+    if(
+
+        music.currentTime
+        >= 10.0
+
+        &&
+
+        !qwestIntro
+        .classList
+        .contains(
+            'show'
+        )
+
+    ){
+
+        qwestIntro
+        .classList
+        .add(
+            'show'
+        );
+    }
+
+});
+
+</script>
+
+</body>
+</html>
